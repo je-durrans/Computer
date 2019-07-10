@@ -1,11 +1,7 @@
 package com.durrans.computer;
 
-import org.junit.After;
-import org.junit.Ignore;
 import org.junit.Test;
 
-import static com.durrans.computer.Config.debug;
-import static com.durrans.computer.Config.print;
 import static com.durrans.computer.ConstantInput.*;
 import static com.durrans.computer.Sink.SINK;
 import static org.junit.Assert.*;
@@ -16,15 +12,9 @@ public class BufferTest {
     private Component off = GROUND;
     private Component sink = SINK;
 
-    @After
-    public void tearDown(){
-        debug=false;
-    }
-//    @Ignore
     @Test
     public void OldTestBuffer(){
         assertFalse(new Buffer(off, off).out());
-        debug=true;
         assertTrue(new Buffer("Buffer", off, on).out());
         assertTrue(new Buffer(on, off).out());
         assertTrue(new Buffer(on, on).out());
@@ -38,9 +28,7 @@ public class BufferTest {
 
         //OFF/OFF
         assertFalse(j.out());
-        print("test1 done");
 
-        print("");
         //OFF/ON
         s2.press();
         assertTrue(j.out());
@@ -54,7 +42,6 @@ public class BufferTest {
         assertTrue(j.out());
     }
 
-//    @Ignore
     @Test
     public void OLDTestBufferWithSink(){
 
@@ -100,7 +87,6 @@ public class BufferTest {
         //ON/OFF
         s2.press();
         assertFalse(j.out());
-
 
     }
 

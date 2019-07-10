@@ -1,20 +1,14 @@
 package com.durrans.computer;
 
-import static com.durrans.computer.Config.print;
-
 public class BooleanTrigger {
 
     private boolean value=false;
-    private String name;
     private Runnable task;
-    private Component owner;
     private boolean fixed = false;
 
 
-    public BooleanTrigger(String name, Runnable r, Component c){
-        this.name = name;
+    public BooleanTrigger(Runnable r){
         task = r;
-        owner = c;
     }
 
     public void set(boolean b) {
@@ -24,7 +18,6 @@ public class BooleanTrigger {
         boolean prev = value;
         value = b;
         if (prev != value){
-            print("Setting "+owner.name+"'s "+name+" to "+value);
             task.run();
         }
     }

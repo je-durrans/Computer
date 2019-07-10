@@ -3,14 +3,12 @@ package com.durrans.computer;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.durrans.computer.Config.print;
-
 public abstract class Component {
 
     public static final boolean OFF=false, ON=true;
 
-    protected BooleanTrigger value = new BooleanTrigger("value", this::onValueChange, this);
-    protected BooleanTrigger grounded = new BooleanTrigger("grounded", this::onGroundedChange, this);
+    protected BooleanTrigger value = new BooleanTrigger(this::onValueChange);
+    protected BooleanTrigger grounded = new BooleanTrigger(this::onGroundedChange);
 
     private List<Component> inputs = new ArrayList<>();
     private List<Component> outputs = new ArrayList<>();
