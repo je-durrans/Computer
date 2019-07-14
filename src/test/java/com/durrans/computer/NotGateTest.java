@@ -6,8 +6,7 @@ import org.junit.Test;
 
 import static com.durrans.computer.Sink.SINK;
 import static com.durrans.computer.Switch.POWER;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class NotGateTest {
 
@@ -45,14 +44,20 @@ public class NotGateTest {
 
         assertTrue(not.out());
 
-        System.out.println("\n\n\n");
-        System.out.println("pressing");
         s.press();
-
-        System.out.println("\n\n\n");
 
         assertFalse(not.out());
 
+    }
+
+    @Test
+    public void TestNotGateOnlyUsesFirstInput(){
+        try {
+            new NotGate("", new Switch(), new Switch());
+            fail();
+        } catch (IllegalArgumentException e) {
+            assertEquals(e.getMessage(), "Too many inputs for component of type NotGate");
+        }
     }
 
 }

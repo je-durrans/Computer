@@ -52,7 +52,7 @@ public class ChainTest {
         Transistor u = new Transistor(t, s2);
         assertFalse(t.out());
         assertFalse(u.out());
-        System.out.println("\nPressing\n");
+
         POWER.on();
         assertTrue(t.out());
         assertTrue(u.out());
@@ -67,12 +67,14 @@ public class ChainTest {
         s2.on();
         Transistor t = new Transistor(mainIn, s1);
         Transistor u = new Transistor(t, s2);
-        System.out.println("\nAddingSink\n");
+
         SINK.registerInput(u);
+
         assertFalse(t.out());
         assertFalse(u.out());
-        System.out.println("\nswitching on\n");
+
         POWER.on();
+
         assertFalse(t.out());
         assertFalse(u.out());
 

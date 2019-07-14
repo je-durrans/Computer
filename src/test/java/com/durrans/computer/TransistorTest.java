@@ -6,8 +6,8 @@ import org.junit.Test;
 
 import static com.durrans.computer.Sink.SINK;
 import static com.durrans.computer.Switch.POWER;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class TransistorTest {
 
@@ -51,7 +51,7 @@ public class TransistorTest {
         Switch s1 = new Switch();
         Switch s2 = new Switch();
 
-        Transistor t = new Transistor(s1, s2);
+        Transistor t = new Transistor("",s1, s2);
         SINK.registerInput(t);
 
         //OFF/OFF
@@ -61,17 +61,23 @@ public class TransistorTest {
         s2.press();
         assertFalse(t.out());
 
-        System.out.println(t.isGrounded());
-
         //ON/ON
         s1.press();
-        System.out.println(s1.out()+""+s2.out());
-        System.out.println("here"+t.out());
         assertFalse(t.out());
 
         //ON/OFF
         s2.press();
         assertFalse(t.out());
+    }
+
+    @Test
+    public void TestTransistorOnlyAcceptsTwoInputs(){
+        try {
+            new Transistor("", new Switch(), new Switch(), new Switch());
+            fail();
+        } catch (IllegalArgumentException e) {
+            assertEquals(e.getMessage(), "Transistor must be instantiated with exactly two inputs");
+        }
     }
 
 }

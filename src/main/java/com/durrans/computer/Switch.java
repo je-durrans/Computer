@@ -9,7 +9,8 @@ public class Switch extends Component {
     }
 
     public Switch(String name, Component...ins){
-        super(name, ins);
+        initialise(name, ins);
+        evaluate();
     }
 
     public static final Switch POWER = new Power();
@@ -29,9 +30,6 @@ public class Switch extends Component {
     @Override
     public void evaluate(){
         super.evaluate();
-        if (closed==null){ // this is stupid
-            closed = new BooleanTrigger(this::evaluate);
-        }
         value.set(value.get()&&closed.get());
     }
 

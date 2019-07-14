@@ -19,8 +19,15 @@ public class Component {
 
     Component(Component...ins){ this("", ins); }
     Component(String name, Component...ins){
+        if (this.getClass() == Component.class) {
+            initialise(name, ins);
+            evaluate();
+        }
+    }
+
+    protected void initialise(String name, Component...ins) {
         this.name = name;
-        for (Component i:ins){
+        for (Component i : ins) {
             registerInput(i);
         }
     }
@@ -34,9 +41,9 @@ public class Component {
     }
 
     public void registerInput(Component i) {
-        if (inputs.size()>=numberOfInputs){
-            System.out.println("ERROR: Too many inputs");
-            return;
+        if (inputs.size()>=this.numberOfInputs){
+            String className = getClass().toString().replaceAll(".+\\.", "");
+            throw new IllegalArgumentException("Too many inputs for component of type "+className);
         }
         inputs.add(i);
         i.registerOutput(this);
