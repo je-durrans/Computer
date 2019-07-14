@@ -8,7 +8,7 @@ import static com.durrans.computer.Sink.SINK;
 import static com.durrans.computer.Switch.POWER;
 import static org.junit.Assert.*;
 
-public class JunctionTest {
+public class ComponentTest {
 
     @Before
     @After
@@ -19,13 +19,13 @@ public class JunctionTest {
     }
 
     @Test
-    public void TestBuffer(){
+    public void TestComponent(){
 
         POWER.on();
         Switch s1 = new Switch("Switch1", POWER);
         Switch s2 = new Switch("Switch2", POWER);
 
-        Junction j = new Junction("Buffer", s1, s2);
+        Component j = new Component(s1, s2);
 
         //OFF/OFF
         assertFalse(j.out());
@@ -50,7 +50,7 @@ public class JunctionTest {
         Switch s1 = new Switch("S1");
         Switch s2 = new Switch("S2");
 
-        Junction j = new Junction("B", s1, s2);
+        Component j = new Component(s1, s2);
         SINK.registerInput(j);
 
         //OFF/OFF

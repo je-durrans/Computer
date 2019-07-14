@@ -21,8 +21,8 @@ public class ChainTest {
 
     @Test
     public void TestBufferChain(){
-        Junction b = new Junction(POWER);
-        Junction c = new Junction(b);
+        Component b = new Component(POWER);
+        Component c = new Component(b);
         assertFalse(b.out());
         assertFalse(c.out());
         POWER.on();
@@ -32,8 +32,8 @@ public class ChainTest {
 
     @Test
     public void TestBufferChainWithSink(){
-        Junction b = new Junction(POWER);
-        Junction c = new Junction(b);
+        Component b = new Component(POWER);
+        Component c = new Component(b);
         SINK.registerInput(c);
         assertFalse(b.out());
         assertFalse(c.out());

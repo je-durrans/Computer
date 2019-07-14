@@ -3,7 +3,7 @@ package com.durrans.computer;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Component {
+public class Component {
 
     static final boolean OFF=false, ON=true;
 
@@ -12,6 +12,8 @@ public abstract class Component {
 
     protected List<Component> inputs = new ArrayList<>();
     protected List<Component> outputs = new ArrayList<>();
+
+    protected int numberOfInputs = Integer.MAX_VALUE;
 
     String name;
 
@@ -32,6 +34,10 @@ public abstract class Component {
     }
 
     public void registerInput(Component i) {
+        if (inputs.size()>=numberOfInputs){
+            System.out.println("ERROR: Too many inputs");
+            return;
+        }
         inputs.add(i);
         i.registerOutput(this);
         evaluate();

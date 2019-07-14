@@ -5,7 +5,7 @@ import static com.durrans.computer.Switch.POWER;
 public class OrGate extends Component {
 
     private Transistor t1, t2;
-    private Junction linker;
+    private Component linker;
 
     public OrGate(Component in1, Component in2) {
         this("", in1, in2);
@@ -15,7 +15,7 @@ public class OrGate extends Component {
         super(name, in1, in2);
         t1 = new Transistor(POWER, in1);
         t2 = new Transistor(POWER, in2);
-        linker = new Junction(t1, t2);
+        linker = new Component(t1, t2);
         evaluate();
     }
 
