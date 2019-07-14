@@ -1,3 +1,1 @@
-//TODO Remove live and ground.
-//TODO Set switch to take input and depend on open/closed
 //TODO Fix stupid initialisation problem with switch closed null (currently instantiated in evaluate as a workaround)
