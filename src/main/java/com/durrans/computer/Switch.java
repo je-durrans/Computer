@@ -28,23 +28,18 @@ public class Switch extends Component {
 
     @Override
     public void evaluate(){
-        System.out.println("Switch evaluating");
         super.evaluate();
         if (closed==null){ // this is stupid
             closed = new BooleanTrigger(this::evaluate);
         }
         value.set(value.get()&&closed.get());
-        System.out.println("Switch evaluated: "+out());
-
     }
 
     private static class Power extends Switch{
 
         @Override
         public void evaluate(){
-            System.out.println("Power evaluating");
             value.set(!grounded.get()&&closed.get());
-            System.out.println("Power evaluated: "+out());
         }
     }
 

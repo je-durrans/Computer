@@ -14,11 +14,9 @@ public class NotGateTest {
     @Before
     @After
     public void setUp(){
-        System.out.println("setup");
         POWER.off();
         POWER.clear();
         SINK.clear();
-        System.out.println("setupdone");
     }
 
     @Test

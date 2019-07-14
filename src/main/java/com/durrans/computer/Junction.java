@@ -12,9 +12,7 @@ public class Junction extends Component {
 
     @Override
     public void evaluate(){
-        System.out.println("Junction evaluating");
         super.evaluate();
-        System.out.println("Junction evaluated: "+out());
 
     }
 

@@ -37,7 +37,7 @@ public abstract class Component {
         evaluate();
     }
 
-    private void registerOutput(Component o){
+    void registerOutput(Component o){
         outputs.add(o);
         evaluate();
     }

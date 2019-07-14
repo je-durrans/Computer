@@ -25,10 +25,8 @@ public class NotGate extends Component {
     @Override
     public void evaluate() {
         if( j==null || t==null){return;}
-        System.out.println("Not evaluating");
         t.evaluate();
         value.set(j.out());
-        System.out.println("Not evaluated: "+out());
 
     }
 
