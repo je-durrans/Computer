@@ -5,38 +5,44 @@ import java.util.List;
 
 public abstract class Component {
 
-    public static final boolean OFF=false, ON=true;
+    static final boolean OFF=false, ON=true;
 
     protected BooleanTrigger value = new BooleanTrigger(this::onValueChange);
     protected BooleanTrigger grounded = new BooleanTrigger(this::onGroundedChange);
 
-    private List<Component> inputs = new ArrayList<>();
-    private List<Component> outputs = new ArrayList<>();
+    protected List<Component> inputs = new ArrayList<>();
+    protected List<Component> outputs = new ArrayList<>();
 
     String name;
 
-    Component(){ this(""); }
-    Component(String name){ this.name = name; }
+    Component(Component...ins){ this("", ins); }
+    Component(String name, Component...ins){
+        this.name = name;
+        for (Component i:ins){
+            registerInput(i);
+        }
+    }
 
     public final boolean out() {
-        return value.get();
+        return value.get()&&!grounded.get();
     }
 
     public final boolean isGrounded(){
         return grounded.get();
     }
 
-    public void registerInput(Component i){
+    public void registerInput(Component i) {
         inputs.add(i);
+        i.registerOutput(this);
         evaluate();
     }
 
-    public void registerOutput(Component o){
+    private void registerOutput(Component o){
         outputs.add(o);
-        checkGround();
+        evaluate();
     }
 
-    private void onValueChange(){
+    void onValueChange(){
         for(Component o : outputs){
             o.evaluate();
         }
@@ -44,34 +50,33 @@ public abstract class Component {
 
     private void onGroundedChange(){
         for(Component i : inputs){
-            i.checkGround();
+            i.evaluate();
         }
-    }
-
-    public void checkGround(){
-        for(Component o: outputs){
-            if (o.isGrounded()){
-                grounded.set(true);
-                value.set(OFF);
-                return;
-            }
-        }
-        grounded.set(false);
-        evaluate();
     }
 
     public void evaluate(){
-        if (grounded.get()) {
-            value.set(OFF);
-            return;
-        }
-        for(Component i: inputs){
-            if (i.out()){
-                value.set(ON);
-                return;
+
+        boolean g = false;
+        for(Component o: outputs){
+            if (o.isGrounded()){
+                g = true;
             }
         }
-        value.set(OFF);
+        grounded.set(g);
+
+        boolean v = OFF;
+        for(Component i: inputs){
+            if (i.out()){
+                v = ON;
+            }
+        }
+        value.set(v);
+    }
+
+    public void clear(){
+        inputs = new ArrayList<>();
+        outputs = new ArrayList<>();
+        evaluate();
     }
 
 }

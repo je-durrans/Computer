@@ -11,10 +11,9 @@ public final class Sink extends Component {
     private Sink(){
         name="Sink";
         value.set(OFF);
+        value.fix();
         grounded.set(true);
+        grounded.fix();
     }
-
-    @Override
-    public void checkGround(){}
 
 }
