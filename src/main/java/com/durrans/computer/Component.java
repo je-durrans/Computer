@@ -3,7 +3,7 @@ package com.durrans.computer;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Component {
+public class Component {
 
     static final boolean OFF=false, ON=true;
 
@@ -13,12 +13,21 @@ public abstract class Component {
     protected List<Component> inputs = new ArrayList<>();
     protected List<Component> outputs = new ArrayList<>();
 
+    protected int numberOfInputs = Integer.MAX_VALUE;
+
     String name;
 
     Component(Component...ins){ this("", ins); }
     Component(String name, Component...ins){
+        if (this.getClass() == Component.class) {
+            initialise(name, ins);
+            evaluate();
+        }
+    }
+
+    protected void initialise(String name, Component...ins) {
         this.name = name;
-        for (Component i:ins){
+        for (Component i : ins) {
             registerInput(i);
         }
     }
@@ -32,6 +41,10 @@ public abstract class Component {
     }
 
     public void registerInput(Component i) {
+        if (inputs.size()>=this.numberOfInputs){
+            String className = getClass().toString().replaceAll(".+\\.", "");
+            throw new IllegalArgumentException("Too many inputs for component of type "+className);
+        }
         inputs.add(i);
         i.registerOutput(this);
         evaluate();

@@ -6,14 +6,16 @@ public class AndGate extends Component {
 
     private Transistor t1, t2;
 
+    {numberOfInputs=2;}
+
     public AndGate(Component in1, Component in2){
         this("", in1, in2);
     }
 
-    public AndGate(String name, Component in1, Component in2){
-        super(name, in1, in2);
-        t1 = new Transistor(POWER, in1);
-        t2 = new Transistor(t1, in2);
+    public AndGate(String name, Component...ins){
+        initialise(name, ins);
+        t1 = new Transistor(POWER, inputs.get(0));
+        t2 = new Transistor(t1, inputs.get(1));
         evaluate();
     }
 

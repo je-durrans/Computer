@@ -5,13 +5,20 @@ import static com.durrans.computer.Sink.SINK;
 
 public class NotGate extends Component {
 
-    private Junction j;
+    private Component j;
     private Transistor t;
 
-    public NotGate(String name, Component input){
-        super(name, input);
-        j = new Junction("junction", POWER);
-        t = new Transistor(j, input);
+    {numberOfInputs=1;}
+
+    public NotGate(Component...ins){
+        this("", ins);
+    }
+
+    public NotGate(String name, Component...ins){
+        initialise(name, ins);
+
+        j = new Component("junction", POWER);
+        t = new Transistor(j, inputs.get(0));
 
         SINK.registerInput(t);
 

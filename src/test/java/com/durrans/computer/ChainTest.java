@@ -21,8 +21,8 @@ public class ChainTest {
 
     @Test
     public void TestBufferChain(){
-        Junction b = new Junction(POWER);
-        Junction c = new Junction(b);
+        Component b = new Component(POWER);
+        Component c = new Component(b);
         assertFalse(b.out());
         assertFalse(c.out());
         POWER.on();
@@ -32,8 +32,8 @@ public class ChainTest {
 
     @Test
     public void TestBufferChainWithSink(){
-        Junction b = new Junction(POWER);
-        Junction c = new Junction(b);
+        Component b = new Component(POWER);
+        Component c = new Component(b);
         SINK.registerInput(c);
         assertFalse(b.out());
         assertFalse(c.out());
@@ -52,7 +52,7 @@ public class ChainTest {
         Transistor u = new Transistor(t, s2);
         assertFalse(t.out());
         assertFalse(u.out());
-        System.out.println("\nPressing\n");
+
         POWER.on();
         assertTrue(t.out());
         assertTrue(u.out());
@@ -67,12 +67,14 @@ public class ChainTest {
         s2.on();
         Transistor t = new Transistor(mainIn, s1);
         Transistor u = new Transistor(t, s2);
-        System.out.println("\nAddingSink\n");
+
         SINK.registerInput(u);
+
         assertFalse(t.out());
         assertFalse(u.out());
-        System.out.println("\nswitching on\n");
+
         POWER.on();
+
         assertFalse(t.out());
         assertFalse(u.out());
 
