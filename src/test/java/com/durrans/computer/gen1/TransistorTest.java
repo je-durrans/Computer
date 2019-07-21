@@ -1,13 +1,12 @@
-package com.durrans.computer;
+package com.durrans.computer.gen1;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.durrans.computer.Sink.SINK;
-import static com.durrans.computer.Switch.POWER;
+import static com.durrans.computer.gen1.Sink.SINK;
+import static com.durrans.computer.gen1.Switch.POWER;
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertEquals;
 
 public class TransistorTest {
 

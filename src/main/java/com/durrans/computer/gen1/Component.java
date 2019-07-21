@@ -1,4 +1,4 @@
-package com.durrans.computer;
+package com.durrans.computer.gen1;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,10 +15,13 @@ public class Component {
 
     protected int numberOfInputs = Integer.MAX_VALUE;
 
-    String name;
+    protected String name;
 
-    Component(Component...ins){ this("", ins); }
-    Component(String name, Component...ins){
+    public Component(Component...ins){
+        this("", ins);
+    }
+
+    public Component(String name, Component...ins){
         if (this.getClass() == Component.class) {
             initialise(name, ins);
             evaluate();
@@ -47,15 +50,13 @@ public class Component {
         }
         inputs.add(i);
         i.registerOutput(this);
-        evaluate();
     }
 
-    void registerOutput(Component o){
+    public void registerOutput(Component o){
         outputs.add(o);
-        evaluate();
     }
 
-    void onValueChange(){
+    private void onValueChange(){
         for(Component o : outputs){
             o.evaluate();
         }

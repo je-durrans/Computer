@@ -1,4 +1,4 @@
-package com.durrans.computer;
+package com.durrans.computer.gen1;
 
 public class BooleanTrigger {
 

@@ -1,11 +1,14 @@
-package com.durrans.computer;
+package com.durrans.computer.gen1;
 
+import com.durrans.computer.gen1.Component;
+import com.durrans.computer.gen1.Switch;
+import com.durrans.computer.gen1.Transistor;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.durrans.computer.Sink.SINK;
-import static com.durrans.computer.Switch.POWER;
+import static com.durrans.computer.gen1.Sink.SINK;
+import static com.durrans.computer.gen1.Switch.POWER;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 
