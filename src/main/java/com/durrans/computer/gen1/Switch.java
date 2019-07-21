@@ -1,4 +1,4 @@
-package com.durrans.computer;
+package com.durrans.computer.gen1;
 
 public class Switch extends Component {
 
@@ -31,13 +31,14 @@ public class Switch extends Component {
     public void evaluate(){
         super.evaluate();
         value.set(value.get()&&closed.get());
+        System.out.println(name+" evaluating to "+value.get());
     }
 
     private static class Power extends Switch{
 
         @Override
         public void evaluate(){
-            value.set(!grounded.get()&&closed.get());
+            value.set(closed.get());
         }
     }
 

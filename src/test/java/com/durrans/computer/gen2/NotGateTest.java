@@ -1,11 +1,12 @@
-package com.durrans.computer;
+package com.durrans.computer.gen2;
 
+import com.durrans.computer.gen1.Switch;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.durrans.computer.Sink.SINK;
-import static com.durrans.computer.Switch.POWER;
+import static com.durrans.computer.gen1.Sink.SINK;
+import static com.durrans.computer.gen1.Switch.POWER;
 import static org.junit.Assert.*;
 
 public class NotGateTest {
@@ -53,7 +54,7 @@ public class NotGateTest {
     @Test
     public void TestNotGateOnlyUsesFirstInput(){
         try {
-            new NotGate("", new Switch(), new Switch());
+            new NotGate(new Switch(), new Switch());
             fail();
         } catch (IllegalArgumentException e) {
             assertEquals(e.getMessage(), "Too many inputs for component of type NotGate");
