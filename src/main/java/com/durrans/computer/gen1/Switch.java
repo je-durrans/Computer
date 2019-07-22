@@ -1,8 +1,6 @@
 package com.durrans.computer.gen1;
 
-public class Switch extends Component {
-
-    BooleanTrigger closed = new BooleanTrigger(this::evaluate);
+public class Switch extends Button {
 
     public Switch(Component...ins){
         this("", ins);
@@ -12,8 +10,6 @@ public class Switch extends Component {
         initialise(name, ins);
         evaluate();
     }
-
-    public static final Switch POWER = new Power();
 
     public void press() {
         closed.set(!closed.get());
@@ -27,19 +23,12 @@ public class Switch extends Component {
         closed.set(false);
     }
 
-    @Override
-    public void evaluate(){
-        super.evaluate();
-        value.set(value.get()&&closed.get());
-        System.out.println(name+" evaluating to "+value.get());
-    }
-
-    private static class Power extends Switch{
+    public static final Switch POWER = new Switch(){
 
         @Override
         public void evaluate(){
             value.set(closed.get());
         }
-    }
+    };
 
 }
