@@ -1,8 +1,9 @@
-package com.durrans.computer.gen3;
+package com.durrans.computer.gen4;
 
 import com.durrans.computer.gen1.Button;
 import com.durrans.computer.gen1.Component;
 import com.durrans.computer.gen1.Switch;
+import com.durrans.computer.gen3.Byte;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

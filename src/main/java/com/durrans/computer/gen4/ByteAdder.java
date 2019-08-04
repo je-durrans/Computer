@@ -1,6 +1,8 @@
-package com.durrans.computer.gen3;
+package com.durrans.computer.gen4;
 
 import com.durrans.computer.gen1.Component;
+import com.durrans.computer.gen3.Byte;
+import com.durrans.computer.gen3.FullAdder;
 
 public class ByteAdder {
 
