@@ -30,7 +30,7 @@ public class Byte {
         return outs[index].out();
     }
 
-    Component getOutput(int index){
+    public Component getOutput(int index){
         return outs[index];
     }
 
