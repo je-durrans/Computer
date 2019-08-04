@@ -4,7 +4,7 @@ import com.durrans.computer.gen1.Component;
 
 public abstract class Gate extends Component {
 
-    Component outComponent;
+    protected Component outComponent;
 
     public Gate(Component...ins){
         this("", ins);
@@ -38,5 +38,12 @@ public abstract class Gate extends Component {
         } catch (NullPointerException e) {
             super.registerOutput(o);
         }
+    }
+
+    @Override
+    public void onValueChange(){
+        try {
+            outComponent.onValueChange();
+        } catch (NullPointerException ignored) {}
     }
 }

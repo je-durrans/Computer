@@ -14,7 +14,9 @@ public class FullAdder extends Gate {
     private BooleanTrigger carryBit = new BooleanTrigger(()->{});
     {numberOfInputs=3;}
 
-    public FullAdder(Component...ins){this("", ins);}
+    public FullAdder(Component...ins){
+        this("", ins);
+    }
 
     public FullAdder(String name, Component...ins) {
         initialise(name, ins);
@@ -22,6 +24,14 @@ public class FullAdder extends Gate {
 
     public boolean[] getBoth(){
         return new boolean[]{carry.out(), sum.out()};
+    }
+
+    public Component getCarry(){
+        return carry;
+    }
+
+    public Component getSum(){
+        return sum;
     }
 
     @Override

@@ -56,7 +56,7 @@ public class Component {
         outputs.add(o);
     }
 
-    private void onValueChange(){
+    public void onValueChange(){
         for(Component o : outputs){
             o.evaluate();
         }

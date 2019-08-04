@@ -16,4 +16,7 @@ public final class Sink extends Component {
         grounded.fix();
     }
 
+    @Override
+    public void registerOutput(Component o){}
+
 }

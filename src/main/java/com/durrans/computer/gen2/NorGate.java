@@ -31,7 +31,6 @@ public class NorGate extends Gate {
         or.evaluate();
         not.evaluate();
         value.set(not.out());
-        System.out.println(name+" evaluating to "+value.get());
     }
 
 }

@@ -1,16 +1,13 @@
 package com.durrans.computer.gen1;
 
-import com.durrans.computer.gen1.Component;
-import com.durrans.computer.gen1.Switch;
-import com.durrans.computer.gen1.Transistor;
+import com.durrans.computer.gen2.NotGate;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import static com.durrans.computer.gen1.Sink.SINK;
 import static com.durrans.computer.gen1.Switch.POWER;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.*;
 
 public class ChainTest {
 
@@ -81,6 +78,20 @@ public class ChainTest {
         assertFalse(t.out());
         assertFalse(u.out());
 
+    }
+
+    @Test
+    public void TestNotChain(){
+        Switch s = new Switch(POWER);
+        NotGate n = new NotGate("second", new NotGate("first", s));
+        POWER.on();
+        assertFalse(n.out());
+
+        s.on();
+        assertTrue(n.out());
+
+        s.off();
+        assertFalse(n.out());
     }
 
 }
