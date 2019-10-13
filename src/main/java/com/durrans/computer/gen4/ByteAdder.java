@@ -1,18 +1,20 @@
 package com.durrans.computer.gen4;
 
 import com.durrans.computer.gen1.Component;
-import com.durrans.computer.gen3.Byte;
+import com.durrans.computer.gen3.Bit;
 import com.durrans.computer.gen3.FullAdder;
 
-public class ByteAdder {
+public class ByteAdder extends MComponent<FullAdder>{
 
-    private FullAdder[] adders = new FullAdder[8];
+    private MComponent<FullAdder> adders = new MComponent<>(FullAdder.class, 8);
 
-    public ByteAdder(Byte b1, Byte b2, Component carryIn){
+    public ByteAdder(MComponent<Bit> b1, MComponent<Bit> b2, Component carryIn){
 
-        adders[7] = new FullAdder(b1.getOutput(7), b2.getOutput(7), carryIn);
+        adders.get(7).registerInput(b1.get(7)); adders.get(7).registerInput(b2.get(7)); adders.get(7).registerInput(carryIn);
         for (int i=1; i<8; i++){
-            adders[7-i] = new FullAdder(b1.getOutput(7-i), b2.getOutput(7-i), adders[8-i].getCarry());
+            //adders[7-i] = new FullAdder(b1.get(7-i), b2.get(7-i), adders[8-i].getCarry());
+            adders.get(7-i).registerInput(b1.get(7-i)); adders.get(7-i).registerInput(b2.get(7-i)); adders.get(7-i).registerInput(adders.get(8-i).getCarry());
+
         }
 
     }
@@ -21,22 +23,23 @@ public class ByteAdder {
 
         boolean[] ret = new boolean[8];
         for (int i=0; i<8; i++){
-            ret[i] = adders[i].out();
+            ret[i] = adders.get(i).out();
         }
         return ret;
     }
 
-    public Component[] getOuts(){
-         Component[] outs = new Component[8];
+    public MComponent<Component> getOuts(){
+        MComponent<Component> outs = new MComponent<>();
         for (int i=0; i<8; i++){
-            outs[i] = adders[i].getSum();
+            outs.add(adders.get(i).getSum());
         }
         return outs;
     }
 
-
     public boolean didOverflow(){
-        return adders[0].getCarry().out();
+        return adders.get(0).getCarry().out();
     }
+
+
 
 }

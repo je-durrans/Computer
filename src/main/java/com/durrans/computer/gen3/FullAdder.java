@@ -9,6 +9,7 @@ public class FullAdder extends Gate {
 
     HalfAdder ha1, sum;
     private OrGate carry;
+    private boolean setup = false;
 
 
     private BooleanTrigger carryBit = new BooleanTrigger(()->{});
@@ -20,6 +21,7 @@ public class FullAdder extends Gate {
 
     public FullAdder(String name, Component...ins) {
         initialise(name, ins);
+        evaluate();
     }
 
     public boolean[] getBoth(){
@@ -39,10 +41,12 @@ public class FullAdder extends Gate {
         ha1 = new HalfAdder(inputs.get(0), inputs.get(1));
         sum = new HalfAdder(ha1, inputs.get(2));
         carry = new OrGate(ha1.carry, sum.carry);
+        setup = true;
     }
 
     @Override
     public void evaluate(){
+        if (!setup) return;
         ha1.evaluate();
         sum.evaluate();
         value.set(sum.out());

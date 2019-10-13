@@ -20,6 +20,10 @@ public class Bit extends Gate {
         value.set(b.out());
     }
 
+    public Bit(Component...ins){
+        this("", ins);
+    }
+
     public Bit(Component value, Component set) {
         this("", value, set);
     }

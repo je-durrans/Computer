@@ -2,6 +2,7 @@ package com.durrans.computer.gen3;
 
 import com.durrans.computer.gen1.Switch;
 import com.durrans.computer.gen1.Button;
+import com.durrans.computer.gen4.MComponent;
 import org.junit.Test;
 
 import static com.durrans.computer.gen1.Switch.POWER;
@@ -12,27 +13,31 @@ public class ByteTest {
     @Test
     public void TestByteStoresAndClears() {
         POWER.on();
-        Switch[] switches = new Switch[8];
-        for (int i=0; i<8; i++)
-            switches[i] = new Switch("switch-"+i, POWER);
+        MComponent<Switch> switches = new MComponent<>(Switch.class, 8);//new Switch[8];
+        switches.register(POWER);
+//        for (int i=0; i<8; i++)
+//            switches[i] = new Switch("switch-"+i, POWER);
 
         Button store = new Button("button");
-        Byte b = new Byte(switches, store);
+        MComponent<Bit> b = new MComponent<>(Bit.class, 8);
+        b.register(switches);
+        b.register(store);
+        //Byte b = new Byte(switches, store);
 
 //        System.out.println();
 
-        switches[2].on();
-        switches[3].on();
-        switches[6].on();
+        switches.get(2).on();
+        switches.get(3).on();
+        switches.get(6).on();
         store.press();
 
         System.out.println(b.toString());
 
         assertArrayEquals(new boolean[]{false, false, true, true, false, false, true, false}, b.out());
 
-        switches[2].off();
-        switches[3].off();
-        switches[6].off();
+        switches.get(2).off();
+        switches.get(3).off();
+        switches.get(6).off();
         store.press();
 
 //        System.out.println();

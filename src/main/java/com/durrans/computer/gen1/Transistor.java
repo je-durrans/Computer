@@ -1,7 +1,5 @@
 package com.durrans.computer.gen1;
 
-import com.durrans.computer.gen1.Component;
-
 public class Transistor extends Component {
 
     private Component collector;
