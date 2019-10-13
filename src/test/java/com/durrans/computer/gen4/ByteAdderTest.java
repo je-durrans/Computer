@@ -42,7 +42,7 @@ public class ByteAdderTest {
         in1 = new MComponent<>(Bit.class, 8); in1.register(ins); in1.register(setB1);
         in2 = new MComponent<>(Bit.class, 8); in2.register(ins); in2.register(setB2);
 
-        adder = new ByteAdder(in1, in2, new Component());
+        adder = new ByteAdder(in1, in2, new Component(), 8);
         out = new MComponent<>(Bit.class, 8); out.register(adder.getOuts()); out.register(add);
     }
 

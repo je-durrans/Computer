@@ -4,6 +4,11 @@ public class Transistor extends Component {
 
     private Component collector;
     private Component base;
+    private static int number=0;
+
+    public static int howMany(){
+        return number;
+    }
 
     {numberOfInputs=2;}
 
@@ -12,6 +17,7 @@ public class Transistor extends Component {
     }
 
     public Transistor(String name, Component...ins){
+        number++;
         if(ins.length!=2){
             throw new IllegalArgumentException("Transistor must be instantiated with exactly two inputs");
         }
