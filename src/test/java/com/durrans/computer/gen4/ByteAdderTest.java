@@ -14,6 +14,8 @@ import static org.junit.Assert.*;
 
 public class ByteAdderTest {
 
+    final int SIZE = 8;
+
     MComponent<Switch> ins;
     Button setB1, setB2, add;
     MComponent<Bit> in1, in2, out;
@@ -32,18 +34,18 @@ public class ByteAdderTest {
         POWER.clear();
         SINK.clear();
 
-        ins = new MComponent<>(Switch.class, 8);
+        ins = new MComponent<>(Switch.class, SIZE);
         ins.register(POWER);
 
         setB1 = new Button("b1", POWER);
         setB2 = new Button("b2", POWER);
         add = new Button("add", POWER);
 
-        in1 = new MComponent<>(Bit.class, 8); in1.register(ins); in1.register(setB1);
-        in2 = new MComponent<>(Bit.class, 8); in2.register(ins); in2.register(setB2);
+        in1 = new MComponent<>(Bit.class, SIZE); in1.register(ins); in1.register(setB1);
+        in2 = new MComponent<>(Bit.class, SIZE); in2.register(ins); in2.register(setB2);
 
-        adder = new ByteAdder(in1, in2, new Component(), 8);
-        out = new MComponent<>(Bit.class, 8); out.register(adder.getOuts()); out.register(add);
+        adder = new ByteAdder(in1, in2, new Component());
+        out = new MComponent<>(Bit.class, SIZE); out.register(adder.getOuts()); out.register(add);
     }
 
     @Test

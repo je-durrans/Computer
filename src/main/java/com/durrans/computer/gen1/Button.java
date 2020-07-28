@@ -2,7 +2,7 @@ package com.durrans.computer.gen1;
 
 public class Button extends Component {
 
-    BooleanTrigger closed = new BooleanTrigger(this::evaluate);
+    public BooleanTrigger closed = new BooleanTrigger(this::evaluate);
 
     public Button(Component...ins) {this("", ins);}
     public Button(String name, Component...ins) {

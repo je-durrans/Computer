@@ -42,6 +42,7 @@ public class FullAdder extends Gate {
         sum = new HalfAdder(ha1, inputs.get(2));
         carry = new OrGate(ha1.carry, sum.carry);
         setup = true;
+        outComponent = sum;
     }
 
     @Override

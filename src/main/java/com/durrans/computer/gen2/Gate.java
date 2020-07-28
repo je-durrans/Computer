@@ -2,6 +2,8 @@ package com.durrans.computer.gen2;
 
 import com.durrans.computer.gen1.Component;
 
+import javax.swing.*;
+
 public abstract class Gate extends Component {
 
     protected Component outComponent;
@@ -38,6 +40,11 @@ public abstract class Gate extends Component {
         } catch (NullPointerException e) {
             super.registerOutput(o);
         }
+    }
+
+    @Override
+    public void registerGuiComponent(JComponent j){
+        outComponent.registerGuiComponent(j);
     }
 
     @Override

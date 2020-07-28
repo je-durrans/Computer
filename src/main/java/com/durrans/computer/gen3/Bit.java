@@ -8,16 +8,20 @@ import com.durrans.computer.gen2.NotGate;
 
 public class Bit extends Gate {
 
-    private Component b;
     private NorGate nor1, nor2;
 
     {numberOfInputs=2;}
 
     @Override
     public void evaluate() {
-        nor1.evaluate();
-        nor2.evaluate();
-        value.set(b.out());
+        if (!inputs.get(0).out()){
+            nor1.evaluate();
+            nor2.evaluate();
+        } else {
+            nor2.evaluate();
+            nor1.evaluate();
+        }
+        value.set(nor2.out());
     }
 
     public Bit(Component...ins){
@@ -33,14 +37,24 @@ public class Bit extends Gate {
     }
 
     @Override
+    public void onValueChange(){
+        super.onValueChange();
+        System.out.println("called bit.onValueChange");
+    }
+
+    @Override
     protected void setupInnerComponents() {
         // Set them up in this order so that nor1 is fully loaded first
         // This makes it default to off
-        nor2 = new NorGate("Nor2", new AndGate(new NotGate(inputs.get(0)), inputs.get(1)));
-        nor1 = new NorGate("Nor1", new AndGate(inputs.get(0), inputs.get(1)), nor2);
+
+        Component reset = new AndGate(new NotGate(inputs.get(0)), inputs.get(1));
+        Component set = new AndGate(inputs.get(0), inputs.get(1));
+
+        nor2 = new NorGate("Nor2", reset);
+        nor1 = new NorGate("Nor1", set, nor2);
         nor2.registerInput(nor1);
-        b = new Component(nor2);
-        outComponent = b;
+
+        outComponent = nor2;
     }
 
 }

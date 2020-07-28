@@ -1,16 +1,24 @@
 package com.durrans.computer.gen1;
 
+import com.durrans.computer.gen4.MComponent;
+
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Component {
 
+//    private static List<Component> all = new ArrayList<>();
+//    public static List<Component> getAll(){
+//        return all;
+//    }
     static final boolean OFF=false, ON=true;
+    protected JComponent j;
 
     protected BooleanTrigger value = new BooleanTrigger(this::onValueChange);
     protected BooleanTrigger grounded = new BooleanTrigger(this::onGroundedChange);
 
-    protected List<Component> inputs = new ArrayList<>();
+    public List<Component> inputs = new ArrayList<>();
     protected List<Component> outputs = new ArrayList<>();
 
     protected int numberOfInputs = Integer.MAX_VALUE;
@@ -22,10 +30,20 @@ public class Component {
     }
 
     public Component(String name, Component...ins){
+        //all.add(this);
         if (this.getClass() == Component.class) {
-            initialise(name, ins);
+            initialise(name.equals("")?"Component":name, ins);
             evaluate();
         }
+//        new Thread(() -> {
+//            while (true){
+//                try{
+//                    Component.this.evaluate();
+//                    Thread.sleep(500);
+//                } catch (Exception ignored){
+//                }
+//            }
+//        }).start();
     }
 
     protected void initialise(String name, Component...ins) {
@@ -56,9 +74,18 @@ public class Component {
         outputs.add(o);
     }
 
+    public void registerGuiComponent(JComponent j){
+        this.j = j;
+        j.updateUI();
+    }
+
     public void onValueChange(){
         for(Component o : outputs){
             o.evaluate();
+        }
+        if (j!=null){
+            System.out.println("GUIupdating");
+            j.updateUI();
         }
     }
 
@@ -91,6 +118,12 @@ public class Component {
         inputs = new ArrayList<>();
         outputs = new ArrayList<>();
         evaluate();
+    }
+
+    public MComponent toMComponent(){
+        MComponent m = new MComponent<>();
+        m.add(this);
+        return m;
     }
 
 }
