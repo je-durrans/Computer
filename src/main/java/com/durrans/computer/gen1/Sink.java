@@ -1,5 +1,8 @@
 package com.durrans.computer.gen1;
 
+/**
+ * Connecting Sink as an output electrically grounds another component.
+ */
 public final class Sink extends Component {
 
     public final static Sink SINK;
@@ -17,6 +20,6 @@ public final class Sink extends Component {
     }
 
     @Override
-    public void registerOutput(Component o){}
+    public void connectTo(Component o){}
 
 }

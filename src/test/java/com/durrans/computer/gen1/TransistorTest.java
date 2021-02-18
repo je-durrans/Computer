@@ -51,7 +51,7 @@ public class TransistorTest {
         Switch s2 = new Switch();
 
         Transistor t = new Transistor("",s1, s2);
-        SINK.registerInput(t);
+        SINK.connectFrom(t);
 
         //OFF/OFF
         assertFalse(t.out());

@@ -1,5 +1,10 @@
 package com.durrans.computer.gen1;
 
+/**
+ * Implementation of a simple push and immediate release button.
+ * Cannot be held closed.
+ */
+
 public class Button extends Component {
 
     public BooleanTrigger closed = new BooleanTrigger(this::evaluate);

@@ -2,6 +2,10 @@ package com.durrans.computer.gen2;
 
 import com.durrans.computer.gen1.Component;
 
+/**
+ * Logical XOR gate. Compound AND-then-NOT.
+ * Implemented as A XOR B = AND(OR(A,B), NAND(A,B)).
+ */
 public class XorGate extends Gate {
 
     private OrGate or;

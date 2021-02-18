@@ -5,6 +5,11 @@ import com.durrans.computer.gen1.Component;
 import com.durrans.computer.gen2.Gate;
 import com.durrans.computer.gen2.OrGate;
 
+/**
+ * Full-adder implementation
+ * Two half-adders take in 3 inputs A, B, Carry-in
+ * Outputs Sum and Carry-out
+ */
 public class FullAdder extends Gate {
 
     HalfAdder ha1, sum;

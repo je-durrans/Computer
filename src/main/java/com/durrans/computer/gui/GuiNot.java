@@ -20,7 +20,7 @@ public class GuiNot extends JPanel implements GuiComponent {
         out = new GuiLine(not);
         add(in);
         add(label);
-        label.setIcon(Images.not);
+//        label.setIcon(Images.not);
         add(out);
         setBackground(Color.RED);
     }

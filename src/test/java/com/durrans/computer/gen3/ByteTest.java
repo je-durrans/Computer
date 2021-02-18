@@ -2,7 +2,7 @@ package com.durrans.computer.gen3;
 
 import com.durrans.computer.gen1.Switch;
 import com.durrans.computer.gen1.Button;
-import com.durrans.computer.gen4.MComponent;
+import com.durrans.computer.gen4.MultiComponent;
 import org.junit.Test;
 
 import static com.durrans.computer.gen1.Switch.POWER;
@@ -13,15 +13,15 @@ public class ByteTest {
     @Test
     public void TestByteStoresAndClears() {
         POWER.on();
-        MComponent<Switch> switches = new MComponent<>(Switch.class, 8);//new Switch[8];
-        switches.register(POWER);
+        MultiComponent<Switch> switches = new MultiComponent<>(Switch.class, 8);//new Switch[8];
+        switches.connectFrom(POWER);
 //        for (int i=0; i<8; i++)
 //            switches[i] = new Switch("switch-"+i, POWER);
 
         Button store = new Button("button");
-        MComponent<Bit> b = new MComponent<>(Bit.class, 8);
-        b.register(switches);
-        b.register(store);
+        MultiComponent<Bit> b = new MultiComponent<>(Bit.class, 8);
+        b.connectFrom(switches);
+        b.connectFrom(store);
         //Byte b = new Byte(switches, store);
 
 //        System.out.println();

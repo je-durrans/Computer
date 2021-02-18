@@ -6,6 +6,7 @@ public class Transistor extends Component {
     private Component base;
     private static int number=0;
 
+    // Curiosity, not functionally useful
     public static int howMany(){
         return number;
     }
@@ -41,11 +42,16 @@ public class Transistor extends Component {
         value.set(collector.out()&&base.out());
     }
 
+    /**
+     * Special case: prevents a transistor from grounding another component through the base pin.
+     * Grounding should only occur propagate through the collector pin.
+     */
     private static class BaseContact extends Component{
 
         BaseContact(Component base) {
+            grounded.set(false);
             grounded.fix();
-            registerInput(base);
+            connectFrom(base);
         }
     }
 

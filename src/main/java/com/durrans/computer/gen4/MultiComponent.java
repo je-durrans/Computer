@@ -4,9 +4,14 @@ import com.durrans.computer.gen1.Component;
 
 import java.util.ArrayList;
 
-public class MComponent<T extends Component> extends ArrayList<T> {
+/**
+ * MultiComponent represents a collection of components of the same type.
+ * Methods allow for faster connection of 1-to-N or N-to-N arrangements
+ * @param <T>
+ */
+public class MultiComponent<T extends Component> extends ArrayList<T> {
 
-    public MComponent(Class<T> clazz, int number){
+    public MultiComponent(Class<T> clazz, int number){
         try {
             for (int i = 0; i < number; i++) {
                 this.add(clazz.getConstructor(Component[].class).newInstance((Object) new Component[]{}));
@@ -16,19 +21,19 @@ public class MComponent<T extends Component> extends ArrayList<T> {
         }
     }
 
-    public MComponent() {
+    public MultiComponent() {
 
     }
 
-    public void register(Component in){
+    public void connectFrom(Component in){
         for (Component c: this){
-            c.registerInput(in);
+            c.connectFrom(in);
         }
     }
 
-    public void register(MComponent in){
+    public void connectFrom(MultiComponent in){
         for (int i=0; i<size(); i++){
-            get(i).registerInput(in.get(i));
+            get(i).connectFrom(in.get(i));
         }
     }
 

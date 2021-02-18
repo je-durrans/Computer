@@ -52,10 +52,10 @@ public class NandGateTest {
 
         NandGate nand  = new NandGate("");
 
-        nand.registerInput(s1);
-        nand.registerInput(s2);
+        nand.connectFrom(s1);
+        nand.connectFrom(s2);
         try{
-            nand.registerInput(tooMany);
+            nand.connectFrom(tooMany);
             fail();
         } catch (IllegalArgumentException e){
             assertEquals(e.getMessage(), "Too many inputs for component of type NandGate");

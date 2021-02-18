@@ -5,6 +5,9 @@ import com.durrans.computer.gen1.Transistor;
 
 import static com.durrans.computer.gen1.Switch.POWER;
 
+/**
+ * Logical OR gate. Transistors in parallel.
+ */
 public class OrGate extends Gate {
 
     private Transistor t1, t2;

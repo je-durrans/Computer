@@ -6,6 +6,9 @@ import com.durrans.computer.gen1.Transistor;
 import static com.durrans.computer.gen1.Switch.POWER;
 import static com.durrans.computer.gen1.Sink.SINK;
 
+/**
+ * Logical NOT gate. Circuit grounded if Transistor is not activated.
+ */
 public class NotGate extends Gate {
 
     private Component j;
@@ -39,7 +42,7 @@ public class NotGate extends Gate {
     protected void setupInnerComponents() {
         j = new Component("junction", POWER);
         t = new Transistor(j, inputs.get(0));
-        SINK.registerInput(t);
+        SINK.connectFrom(t);
         outComponent = j;
     }
 }

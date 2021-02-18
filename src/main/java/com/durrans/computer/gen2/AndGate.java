@@ -5,6 +5,9 @@ import com.durrans.computer.gen1.Transistor;
 
 import static com.durrans.computer.gen1.Switch.POWER;
 
+/**
+ * Logical AND gate. Transistors in series.
+ */
 public class AndGate extends Gate {
 
     private Transistor t1, t2;

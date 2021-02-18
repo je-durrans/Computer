@@ -4,6 +4,11 @@ import com.durrans.computer.gen1.Component;
 
 import javax.swing.*;
 
+/**
+ * Base logic gate class.
+ * Allows partial setting of inputs.
+ * Delays internal implementation until sufficiently many inputs are provided.
+ */
 public abstract class Gate extends Component {
 
     protected Component outComponent;
@@ -18,8 +23,8 @@ public abstract class Gate extends Component {
     abstract protected void setupInnerComponents();
 
     @Override
-    public void registerInput(Component i) {
-        super.registerInput(i);
+    public void connectFrom(Component i) {
+        super.connectFrom(i);
         if (inputs.size() == numberOfInputs) {
             setupInnerComponents();
             registerPendingOutputs();
@@ -29,22 +34,26 @@ public abstract class Gate extends Component {
 
     private void registerPendingOutputs() {
         for (Component o:outputs){
-            outComponent.registerOutput(o);
+            outComponent.connectTo(o);
         }
     }
 
     @Override
-    public void registerOutput(Component o) {
+    public void connectTo(Component o) {
         try {
-            outComponent.registerOutput(o);
+            outComponent.connectTo(o);
         } catch (NullPointerException e) {
-            super.registerOutput(o);
+            super.connectTo(o);
         }
     }
 
     @Override
-    public void registerGuiComponent(JComponent j){
-        outComponent.registerGuiComponent(j);
+    public void attachGuiComponent(JComponent j){
+        try {
+            outComponent.attachGuiComponent(j);
+        } catch (NullPointerException e) {
+            super.attachGuiComponent(j);
+        }
     }
 
     @Override

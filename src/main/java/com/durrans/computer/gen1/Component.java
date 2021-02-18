@@ -1,17 +1,18 @@
 package com.durrans.computer.gen1;
 
-import com.durrans.computer.gen4.MComponent;
+import com.durrans.computer.gen4.MultiComponent;
 
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Base Component class.
+ * Stores inputs, outputs, value of output, and whether it is electrically grounded.
+ * May optionally be given a name, and/or be linked to a Gui representation.
+ */
 public class Component {
 
-//    private static List<Component> all = new ArrayList<>();
-//    public static List<Component> getAll(){
-//        return all;
-//    }
     static final boolean OFF=false, ON=true;
     protected JComponent j;
 
@@ -49,7 +50,7 @@ public class Component {
     protected void initialise(String name, Component...ins) {
         this.name = name;
         for (Component i : ins) {
-            registerInput(i);
+            connectFrom(i);
         }
     }
 
@@ -61,20 +62,20 @@ public class Component {
         return grounded.get();
     }
 
-    public void registerInput(Component i) {
+    public void connectFrom(Component i) {
         if (inputs.size()>=this.numberOfInputs){
             String className = getClass().toString().replaceAll(".+\\.", "");
             throw new IllegalArgumentException("Too many inputs for component of type "+className);
         }
         inputs.add(i);
-        i.registerOutput(this);
+        i.connectTo(this);
     }
 
-    public void registerOutput(Component o){
+    public void connectTo(Component o){
         outputs.add(o);
     }
 
-    public void registerGuiComponent(JComponent j){
+    public void attachGuiComponent(JComponent j){
         this.j = j;
         j.updateUI();
     }
@@ -84,7 +85,6 @@ public class Component {
             o.evaluate();
         }
         if (j!=null){
-            System.out.println("GUIupdating");
             j.updateUI();
         }
     }
@@ -120,8 +120,8 @@ public class Component {
         evaluate();
     }
 
-    public MComponent toMComponent(){
-        MComponent m = new MComponent<>();
+    public MultiComponent toMComponent(){
+        MultiComponent m = new MultiComponent<>();
         m.add(this);
         return m;
     }

@@ -11,7 +11,7 @@ public class GuiMultiplexer extends JPanel {
 
     public GuiMultiplexer(Multiplexer m){
 //        this.m = m;
-        m.registerGuiComponent(this);
+        m.attachGuiComponent(this);
         in1 = new GuiLabel(m.inputs.get(0)); add(in1);
         in2 = new GuiLabel(m.inputs.get(1)); add(in2);
         toggle = new GuiLabel(m.inputs.get(2)); add(toggle);

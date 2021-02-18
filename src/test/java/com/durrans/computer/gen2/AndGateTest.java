@@ -52,10 +52,10 @@ public class AndGateTest {
 
         AndGate and  = new AndGate("");
 
-        and.registerInput(s1);
-        and.registerInput(s2);
+        and.connectFrom(s1);
+        and.connectFrom(s2);
         try{
-            and.registerInput(tooMany);
+            and.connectFrom(tooMany);
             fail();
         } catch (IllegalArgumentException e){
             assertEquals(e.getMessage(), "Too many inputs for component of type AndGate");

@@ -1,5 +1,8 @@
 package com.durrans.computer.gen1;
 
+/**
+ * Simple switch implementation, stays open/closed.
+ */
 public class Switch extends Button {
 
     public Switch(Component...ins){

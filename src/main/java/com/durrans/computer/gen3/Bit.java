@@ -6,6 +6,10 @@ import com.durrans.computer.gen2.Gate;
 import com.durrans.computer.gen2.NorGate;
 import com.durrans.computer.gen2.NotGate;
 
+/**
+ * Simple memory implementation.
+ * Flip-flop circuit built from two cross-connected NOR gates.
+ */
 public class Bit extends Gate {
 
     private NorGate nor1, nor2;
@@ -52,7 +56,7 @@ public class Bit extends Gate {
 
         nor2 = new NorGate("Nor2", reset);
         nor1 = new NorGate("Nor1", set, nor2);
-        nor2.registerInput(nor1);
+        nor2.connectFrom(nor1);
 
         outComponent = nor2;
     }

@@ -2,6 +2,9 @@ package com.durrans.computer.gen2;
 
 import com.durrans.computer.gen1.Component;
 
+/**
+ * Logical NAND gate. Compound AND-then-NOT.
+ */
 public class NandGate extends Gate {
 
     private AndGate and;

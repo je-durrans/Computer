@@ -6,18 +6,18 @@ import javax.swing.*;
 
 public class GuiLabel extends JLabel {
 
-    private final Component s;
+    private final Component component;
 
-    public GuiLabel(Component s){
-        this.s = s;
-        s.registerGuiComponent(this);
+    public GuiLabel(Component c){
+        component = c;
+        component.attachGuiComponent(this);
         updateText();
     }
 
-    private void updateText() {if (s==null){
-        System.out.println("it's null");return;}
-        System.out.println("updating label");
-        setText(s.out()?"1":"0");
+    private void updateText() {
+        if (component!=null) {
+            setText(component.out() ? "1" : "0");
+        }
     }
 
     @Override

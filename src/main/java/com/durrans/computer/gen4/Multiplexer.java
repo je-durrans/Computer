@@ -6,6 +6,9 @@ import com.durrans.computer.gen2.Gate;
 import com.durrans.computer.gen2.NotGate;
 import com.durrans.computer.gen2.OrGate;
 
+/**
+ * Conditionally outputs one of two given inputs.
+ */
 public class Multiplexer extends Gate {
 
     static int number = 0;

@@ -52,10 +52,10 @@ public class XorGateTest {
 
         XorGate xor  = new XorGate("");
 
-        xor.registerInput(s1);
-        xor.registerInput(s2);
+        xor.connectFrom(s1);
+        xor.connectFrom(s2);
         try{
-            xor.registerInput(tooMany);
+            xor.connectFrom(tooMany);
             fail();
         } catch (IllegalArgumentException e){
             assertEquals(e.getMessage(), "Too many inputs for component of type XorGate");

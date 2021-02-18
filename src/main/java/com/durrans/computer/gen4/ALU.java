@@ -20,18 +20,28 @@ import java.util.Map;
 
 import static com.durrans.computer.gen1.Switch.POWER;
 
+/**
+ * Arithmetic Logic Unit
+ * Performs Add/Subtract/Logical-AND/Logical-OR operations on two byte buffer inputs.
+ * Switches type (math/logic) and operation (add/sub or and/or) define the operation to be performed
+ * 00 ADD
+ * 01 SUB
+ * 10 AND
+ * 11 OR
+ * Current implementation contains the setup of the required inputs.
+ */
 public class ALU extends Component{
-    private static final int SIZE = 1;
+    private static final int SIZE = 8;
 
     private static Switch type;
     private static Switch operation;
 
-    private static MComponent<Bit> buffer1, buffer2;
-    private static MComponent<XorGate> flipper;
-    private static ByteAdder adder;
-    private static MComponent<AndGate> andGates;
-    private static MComponent<OrGate> orGates;
-    private static MComponent<Multiplexer> logic, out;
+    private static MultiComponent<Bit> buffer1, buffer2;
+    private static MultiComponent<XorGate> flipper;
+    private static NBitAdder adder;
+    private static MultiComponent<AndGate> andGates;
+    private static MultiComponent<OrGate> orGates;
+    private static MultiComponent<Multiplexer> logic, out;
 
 //    private ALU(Component...ins){
 //        this("", ins);
@@ -44,8 +54,8 @@ public class ALU extends Component{
 
     public static void main(String[] args) {
 
-        MComponent<Switch> inputs = new MComponent<>(Switch.class, SIZE);
-        inputs.register(POWER);
+        MultiComponent<Switch> inputs = new MultiComponent<>(Switch.class, SIZE);
+        inputs.connectFrom(POWER);
 
         Gui gui = new Gui();
 
@@ -53,41 +63,41 @@ public class ALU extends Component{
         Button set2 = new Button(POWER);
 
 
-        buffer1 = new MComponent<>(Bit.class, SIZE);
-        buffer1.register(inputs);
-        buffer1.register(set1);
+        buffer1 = new MultiComponent<>(Bit.class, SIZE);
+        buffer1.connectFrom(inputs);
+        buffer1.connectFrom(set1);
 
-        buffer2 = new MComponent<>(Bit.class, SIZE);
-        buffer2.register(inputs);
-        buffer2.register(set2);
+        buffer2 = new MultiComponent<>(Bit.class, SIZE);
+        buffer2.connectFrom(inputs);
+        buffer2.connectFrom(set2);
 
         operation = new Switch(POWER);
         type = new Switch(POWER);
 
 
-        flipper = new MComponent<>(XorGate.class, SIZE);
-        flipper.register(operation);
-        flipper.register(buffer2);
+        flipper = new MultiComponent<>(XorGate.class, SIZE);
+        flipper.connectFrom(operation);
+        flipper.connectFrom(buffer2);
 
-        adder = new ByteAdder(buffer1, flipper, operation);
+        adder = new NBitAdder(buffer1, flipper, operation);
 
-        andGates = new MComponent<>(AndGate.class, SIZE);
-        andGates.register(buffer1);
-        andGates.register(buffer2);
+        andGates = new MultiComponent<>(AndGate.class, SIZE);
+        andGates.connectFrom(buffer1);
+        andGates.connectFrom(buffer2);
 
-        orGates = new MComponent<>(OrGate.class, SIZE);
-        orGates.register(buffer1);
-        orGates.register(buffer2);
+        orGates = new MultiComponent<>(OrGate.class, SIZE);
+        orGates.connectFrom(buffer1);
+        orGates.connectFrom(buffer2);
 
-        logic = new MComponent<>(Multiplexer.class, SIZE);
-        logic.register(andGates);
-        logic.register(orGates);
-        logic.register(operation);
+        logic = new MultiComponent<>(Multiplexer.class, SIZE);
+        logic.connectFrom(andGates);
+        logic.connectFrom(orGates);
+        logic.connectFrom(operation);
 
-        out = new MComponent<>(Multiplexer.class, SIZE);
-        out.register(adder);
-        out.register(logic);
-        out.register(type);
+        out = new MultiComponent<>(Multiplexer.class, SIZE);
+        out.connectFrom(adder);
+        out.connectFrom(logic);
+        out.connectFrom(type);
 
 
         createSwitches(gui, 0, POWER.toMComponent());
@@ -132,13 +142,13 @@ public class ALU extends Component{
     }
 
     private static void printComponentOuts(){
-        MComponent<AndGate> a = new MComponent<>();
-        MComponent<AndGate> b = new MComponent<>();
+        MultiComponent<AndGate> a = new MultiComponent<>();
+        MultiComponent<AndGate> b = new MultiComponent<>();
         for (Multiplexer m:out){
             a.add(m.and1);
             b.add(m.and2);
         }
-        Map<String, MComponent> components = new HashMap<>();
+        Map<String, MultiComponent> components = new HashMap<>();
         components.put("buffer1",buffer1);
         components.put("buffer2", buffer2);
         components.put("flipper",flipper);
@@ -150,9 +160,9 @@ public class ALU extends Component{
         components.put("and2   ",b);
         components.put("out    ",out);
         //MComponent[] components = {buffer1, buffer2, flipper, adder, andGates, orGates, logic, a, b, out};
-        for (Map.Entry<String, MComponent> e:components.entrySet()){
+        for (Map.Entry<String, MultiComponent> e:components.entrySet()){
             String s = e.getKey();
-            MComponent c = e.getValue();
+            MultiComponent c = e.getValue();
             System.out.print(s+" : ");
             String bin = Arrays.toString(c.out()).replace("true", "1").replace("false","0").replace(", ","");
             bin = bin.substring(1, bin.length()-1);
@@ -173,7 +183,7 @@ public class ALU extends Component{
         gui.add(gs, c);
     }
 
-    private static void createSwitches(Gui gui, int yPos, MComponent<? extends Switch> mc, String...strings){
+    private static void createSwitches(Gui gui, int yPos, MultiComponent<? extends Switch> mc, String...strings){
         GridBagConstraints c = new GridBagConstraints();
         c.gridx=0;
         c.gridy=yPos;
@@ -184,7 +194,7 @@ public class ALU extends Component{
         }
     }
 
-    private static void createLabels(Gui gui, int yPos, int xPos, MComponent<? extends Component> mc){
+    private static void createLabels(Gui gui, int yPos, int xPos, MultiComponent<? extends Component> mc){
         GridBagConstraints c = new GridBagConstraints();
         c.gridx=xPos;
         c.gridy=yPos;

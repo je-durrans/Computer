@@ -52,10 +52,10 @@ public class NorGateTest {
 
         NorGate nor  = new NorGate("");
 
-        nor.registerInput(s1);
-        nor.registerInput(s2);
+        nor.connectFrom(s1);
+        nor.connectFrom(s2);
         try{
-            nor.registerInput(tooMany);
+            nor.connectFrom(tooMany);
             fail();
         } catch (IllegalArgumentException e){
             assertEquals(e.getMessage(), "Too many inputs for component of type NorGate");

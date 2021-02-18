@@ -73,12 +73,12 @@ public class MultiplexerTest {
     public void TestMultiplexerArray(){
         POWER.on();
         boolean[] ba = new boolean[]{false, true};
-        MComponent<Switch> input1 = new MComponent<>(Switch.class, 8);
-        MComponent<Switch> input2 = new MComponent<>(Switch.class, 8);
-        MComponent<Switch> toggle = new MComponent<>(Switch.class, 8);
-        input1.register(POWER);
-        input2.register(POWER);
-        toggle.register(POWER);
+        MultiComponent<Switch> input1 = new MultiComponent<>(Switch.class, 8);
+        MultiComponent<Switch> input2 = new MultiComponent<>(Switch.class, 8);
+        MultiComponent<Switch> toggle = new MultiComponent<>(Switch.class, 8);
+        input1.connectFrom(POWER);
+        input2.connectFrom(POWER);
+        toggle.connectFrom(POWER);
 
       //input1.get(0).off();//input2.get(0).off();//toggle.get(0).off();
       /*input1.get(1).off();//input2.get(1).off();*/toggle.get(1).on() ;
@@ -89,10 +89,10 @@ public class MultiplexerTest {
         input1.get(6).on() ;  input2.get(6).on() ;//toggle.get(6).off();
         input1.get(7).on() ;  input2.get(7).on() ;  toggle.get(7).on() ;
 
-        MComponent<Multiplexer> m = new MComponent<>(Multiplexer.class, 8);
-        m.register(input1);
-        m.register(input2);
-        m.register(toggle);
+        MultiComponent<Multiplexer> m = new MultiComponent<>(Multiplexer.class, 8);
+        m.connectFrom(input1);
+        m.connectFrom(input2);
+        m.connectFrom(toggle);
         boolean[] expected = new boolean[8];
         for (int i=0; i<8; i++){
             expected[i] = toggle.get(i).out()?input2.get(i).out():input1.get(i).out();

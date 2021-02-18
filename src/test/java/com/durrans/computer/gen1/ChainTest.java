@@ -34,7 +34,7 @@ public class ChainTest {
     public void TestBufferChainWithSink(){
         Component b = new Component(POWER);
         Component c = new Component(b);
-        SINK.registerInput(c);
+        SINK.connectFrom(c);
         assertFalse(b.out());
         assertFalse(c.out());
         POWER.on();
@@ -68,7 +68,7 @@ public class ChainTest {
         Transistor t = new Transistor(mainIn, s1);
         Transistor u = new Transistor(t, s2);
 
-        SINK.registerInput(u);
+        SINK.connectFrom(u);
 
         assertFalse(t.out());
         assertFalse(u.out());

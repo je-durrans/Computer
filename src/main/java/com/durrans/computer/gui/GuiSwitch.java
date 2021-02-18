@@ -12,15 +12,15 @@ public class GuiSwitch extends JButton {
 
     public GuiSwitch(Button b, String...strings){
         this.b = b;
-        b.registerGuiComponent(this);
+        b.attachGuiComponent(this);
         addActionListener((e) -> {
             b.press();
             GuiSwitch.this.updateText();
             GuiSwitch.this.updateUI();
         });
-        updateText();
         this.s = strings.length>0?strings[0]:null;
         this.s2 = strings.length>1?strings[1]:null;
+        updateText();
     }
 
     private void updateText() {

@@ -6,6 +6,9 @@ import com.durrans.computer.gen2.AndGate;
 import com.durrans.computer.gen2.Gate;
 import com.durrans.computer.gen2.XorGate;
 
+/**
+ * Half-adder implementation
+ */
 public class HalfAdder extends Gate {
 
     private BooleanTrigger carryBit = new BooleanTrigger(()->{});

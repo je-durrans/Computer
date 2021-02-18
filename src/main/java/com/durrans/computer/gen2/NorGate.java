@@ -2,6 +2,9 @@ package com.durrans.computer.gen2;
 
 import com.durrans.computer.gen1.Component;
 
+/**
+ * Logical NOR gate. Compound OR-then-NOT.
+ */
 public class NorGate extends Gate {
 
     private OrGate or;

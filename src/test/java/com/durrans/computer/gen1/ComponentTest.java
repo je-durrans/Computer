@@ -1,7 +1,5 @@
 package com.durrans.computer.gen1;
 
-import com.durrans.computer.gen1.Component;
-import com.durrans.computer.gen1.Switch;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -53,7 +51,7 @@ public class ComponentTest {
         Switch s2 = new Switch("S2");
 
         Component j = new Component(s1, s2);
-        SINK.registerInput(j);
+        SINK.connectFrom(j);
 
         //OFF/OFF
         assertFalse(j.out());

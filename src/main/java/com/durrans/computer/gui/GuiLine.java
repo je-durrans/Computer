@@ -4,22 +4,22 @@ import com.durrans.computer.gen1.Component;
 
 import javax.swing.*;
 
-import static com.durrans.computer.gui.Images.*;
+//import static com.durrans.computer.gui.Images.*;
 
 public class GuiLine extends JLabel {
 
-    Component comp;
+    Component component;
 
     public GuiLine(Component component) {
-        comp=component;
+        this.component =component;
         update();
     }
 
     public void update() {
-        if(comp.out()){
-            setIcon(active);
+        if(component.out()){
+//            setIcon(active);
         } else {
-            setIcon(inactive);
+//            setIcon(inactive);
         }
     }
 }

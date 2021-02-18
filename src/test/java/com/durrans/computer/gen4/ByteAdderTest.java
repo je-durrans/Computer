@@ -16,10 +16,10 @@ public class ByteAdderTest {
 
     final int SIZE = 8;
 
-    MComponent<Switch> ins;
+    MultiComponent<Switch> ins;
     Button setB1, setB2, add;
-    MComponent<Bit> in1, in2, out;
-    ByteAdder adder;
+    MultiComponent<Bit> in1, in2, out;
+    NBitAdder adder;
 
     @After
     public void tearDown() {
@@ -34,18 +34,18 @@ public class ByteAdderTest {
         POWER.clear();
         SINK.clear();
 
-        ins = new MComponent<>(Switch.class, SIZE);
-        ins.register(POWER);
+        ins = new MultiComponent<>(Switch.class, SIZE);
+        ins.connectFrom(POWER);
 
         setB1 = new Button("b1", POWER);
         setB2 = new Button("b2", POWER);
         add = new Button("add", POWER);
 
-        in1 = new MComponent<>(Bit.class, SIZE); in1.register(ins); in1.register(setB1);
-        in2 = new MComponent<>(Bit.class, SIZE); in2.register(ins); in2.register(setB2);
+        in1 = new MultiComponent<>(Bit.class, SIZE); in1.connectFrom(ins); in1.connectFrom(setB1);
+        in2 = new MultiComponent<>(Bit.class, SIZE); in2.connectFrom(ins); in2.connectFrom(setB2);
 
-        adder = new ByteAdder(in1, in2, new Component());
-        out = new MComponent<>(Bit.class, SIZE); out.register(adder.getOuts()); out.register(add);
+        adder = new NBitAdder(in1, in2, new Component());
+        out = new MultiComponent<>(Bit.class, SIZE); out.connectFrom(adder.getOuts()); out.connectFrom(add);
     }
 
     @Test
